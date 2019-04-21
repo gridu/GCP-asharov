@@ -1,0 +1,5 @@
+---
+
+- hosts: dev-httpd
+  roles:
+   - { role: apache }

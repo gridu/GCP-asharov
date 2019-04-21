@@ -1,0 +1,61 @@
+{
+  "variables": {
+    "gcp_account_file": "{{ env `GCE_CREDENTIALS` }}",
+    "gcp_project_id": "{{ env `GCE_PROJECT_ID` }}",
+    "gcp_zone": "europe-west1-b",
+    "gcp_disk_size": "30",
+    "image_ssh_username": "centos",
+    "image_name": "apache-{{ timestamp }}",
+    "image_family": "apache-v246",
+    "image_description": "",
+    "gcp_source_image": "centos-7-v20180911",
+    "ssh_key_for_new_user": "{{ env `SSH_PUBKEY` }}"
+  },
+  "builders": [
+    {
+      "type": "googlecompute",
+      "account_file": "{{ user `gcp_account_file` }}",
+      "project_id": "{{ user `gcp_project_id` }}",
+      "zone": "{{ user `gcp_zone` }}",
+      "disk_size": "{{ user `gcp_disk_size` }}",
+      "ssh_username": "{{ user `image_ssh_username` }}",
+      "ssh_timeout": "5m",
+      "ssh_pty": true,
+      "image_family": "{{ user `image_family` }}",
+      "image_name": "{{ user `image_name` }}",
+      "image_description": "{{ user `image_description` }}",
+      "image_labels": {
+        "name": "{{ user `image_name` }}",
+        "os": "centos",
+        "os-version": "7",
+        "timestamp": "{{ timestamp }}"
+      },
+      "source_image": "{{ user `gcp_source_image` }}",
+      "tags": [
+        "packer"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "scripts/create_ssh_user.sh",
+      "destination": "/tmp/create_ssh_user.sh"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo -S bash /tmp/create_ssh_user.sh -U 'infra' -K '{{ user `ssh_key_for_new_user` }}'"
+      ]
+    },
+    {
+      "type": "shell",
+      "execute_command": "sudo -S bash -e -c '{{ .Path }}'",
+      "scripts": [
+        "scripts/install_apache.sh",
+        "scripts/systemd-setup.sh",
+        "scripts/cleanup.sh"
+      ]
+    }
+  ]
+}

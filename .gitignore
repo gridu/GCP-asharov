@@ -1,0 +1,40 @@
+# Various IDEs
+*.idea
+*.iml
+*.log
+*.tmproj
+*.project
+
+# Common backup files
+*.swp
+*.bak
+*.tmp
+*.swo
+*.swn
+*.swl
+*.swm
+*.swj
+*.swk
+
+# Python
+*.pyc
+
+# MacOS
+.DS_Store
+
+# Terraform
+terraform.tfstate*
+.terraform
+.terraform.tfstate.lock.info
+
+# Misc
+*.zip
+*.tgz
+*.lock
+
+# Ansible
+playbooks/inventory
+playbooks/playbook.yaml
+playbooks/playbook.yml
+test-output/
+test.yml

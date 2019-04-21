@@ -1,0 +1,37 @@
+<!doctype html>
+<title>Test page...</title>
+<style>
+    body {
+        text-align: center;
+        padding: 150px;
+    }
+    h1 {
+        font-size: 50px;
+    }
+    body {
+        font: 20px Helvetica, sans-serif;
+        color: #333;
+    }
+    article {
+        display: block;
+        text-align: left;
+        width: 650px;
+        margin: 0 auto;
+    }
+    a {
+        color: #30931c;
+        text-decoration: none;
+    }
+</style>
+<article>
+    <h1>Welcome to {{ ansible_hostname }}!</h1>
+    <div>
+        <p>
+            Now you&rsquo;re at <b>{{ ansible_hostname }}</b> server.<br>
+            This is <b>one</b> of <b>{{ ansible_play_hosts | length }} servers</b>.<br>
+            Server IP is <b>{{ ansible_ssh_host }}</b>.<br>
+            If you reload the page you can get to another server. Thanks for clicking.</p>
+        </p>
+        <p><a>&mdash; Alex Sharov</a></p>
+    </div>
+</article>

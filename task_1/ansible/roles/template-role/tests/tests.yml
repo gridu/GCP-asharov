@@ -1,0 +1,8 @@
+# file: template-role/tests/tests.yml
+# descriptrion: file contains playbook for testing template-role
+
+---
+
+- hosts: localhost
+  roles:
+    - template-role

@@ -1,0 +1,8 @@
+# file: apache/tests/tests.yml
+# descriptrion: file contains playbook for testing apache
+
+---
+
+- hosts: localhost
+  roles:
+    - apache
